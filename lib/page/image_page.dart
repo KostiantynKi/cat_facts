@@ -5,61 +5,73 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ImagePage extends StatelessWidget {
+  const ImagePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    CounterCubit counterCubit = BlocProvider.of<CounterCubit>(context);
-    // counterCubit.getData();
-    return BlocBuilder<CounterCubit, CatsState>(
+    CatsCubit counterCubit = BlocProvider.of<CatsCubit>(context);
+    return BlocBuilder<CatsCubit, CatsState>(
       builder: (context, state) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 400,
-                  height: 400,
-                  child: Image.network(
-                    state.linkImage!,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, progress) {
-                      return progress == null
-                          ? child
-                          : CircularProgressIndicator();
-                    },
+        return SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 400,
+                    height: 400,
+                    child: Image.network(
+                      state.linkImage!,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, progress) {
+                        return progress == null
+                            ? child
+                            : const CircularProgressIndicator();
+                      },
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text('${state.fact!} ${state.todayDay}'),
-              TextButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue)),
-                  onPressed: () {
-                    counterCubit.getData();
-                  },
+                const SizedBox(height: 4),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                   child: Text(
-                    'Another fact!',
-                    style: TextStyle(color: Colors.white),
-                  )),
-              TextButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FactHistoryScreen(
-                                catsFactsBox: state.catsFactsBox!,
-                              )),
-                    );
-                  },
-                  child: Text(
-                    'Fact history',
-                    style: TextStyle(color: Colors.white),
-                  )),
-            ],
+                    '${state.fact!} ${state.todayDay}',
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                ),
+                TextButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blue)),
+                    onPressed: () {
+                      counterCubit.getData();
+                    },
+                    child: Text(
+                      'Another fact!',
+                      style: Theme.of(context).textTheme.headline2,
+                    )),
+                const SizedBox(height: 4),
+                TextButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blue)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FactHistoryScreen(
+                                  catsFactsBox: state.catsFactsBox!,
+                                )),
+                      );
+                    },
+                    child: Text(
+                      'Fact history',
+                      style: Theme.of(context).textTheme.headline2,
+                    )),
+              ],
+            ),
           ),
         );
       },

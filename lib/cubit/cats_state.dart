@@ -1,12 +1,12 @@
-// abstract class CatsState {}
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+
+import '../models/cats_fact_model_hive.dart';
 
 class CatsState {
   String? linkImage;
   final String? fact;
   String? todayDay;
-  Box? catsFactsBox;
+  Box<CatsFacts>? catsFactsBox;
 
   CatsState({
     this.linkImage,
@@ -25,7 +25,7 @@ class CatsLoadedState extends CatsState {
     String? linkImage,
     String? fact,
     String? todayDay,
-    Box? catsFactsBox,
+    Box<CatsFacts>? catsFactsBox,
   ) : super(
           linkImage: linkImage,
           fact: fact,

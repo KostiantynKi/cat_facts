@@ -1,19 +1,19 @@
 import 'package:cat_facts/cubit/cats_cubit.dart';
-import 'package:cat_facts/cubit/cats_state.dart';
-import 'package:cat_facts/page/counter_page.dart';
+import 'package:cat_facts/page/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import ' services/cats_api_provider.dart';
-import ' services/image_cash_clear.dart';
+import 'models/cats_fact_model_hive.dart';
 
 void main() async {
+  /// This may be needed if you use another API:
   // MyWidgetsBinding();
 
   await Hive.initFlutter();
-  await Hive.openBox<String>('catsFacts');
+  Hive.registerAdapter(CatsFactsAdapter());
+
+  await Hive.openBox<CatsFacts>('catsFacts');
 
   BlocOverrides.runZoned(
     () => runApp(const App()),
@@ -21,18 +21,15 @@ void main() async {
   );
 }
 
-/// Custom [BlocObserver] that observes all bloc and cubit state changes.
 class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    // if (bloc is Cubit) print(change);
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    // print(transition);
   }
 }
 
@@ -42,9 +39,24 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CounterCubit(),
+      create: (_) => CatsCubit(),
       // child: const AppView(),
-      child: MaterialApp(home: const CounterPage()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const StartPage(),
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          textTheme: const TextTheme(
+              headline1: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
+              headline2: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white)),
+        ),
+      ),
     );
   }
 }

@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../models/cats_fact_model_hive.dart';
+
 class FactHistoryScreen extends StatelessWidget {
-  Box catsFactsBox;
-  FactHistoryScreen({required this.catsFactsBox});
+  Box<CatsFacts>? catsFactsBox;
+  FactHistoryScreen({super.key, required this.catsFactsBox});
   @override
   Widget build(BuildContext context) {
-    // Box<String> catsFactsBox = Hive.box('catsFacts');
-
     return ValueListenableBuilder(
-      // valueListenable: Hive.box('catsFacts').listenable(), //!!
-      valueListenable: catsFactsBox.listenable(), //!!
+      valueListenable: catsFactsBox!.listenable(),
       builder: (context, Box box, _) {
-        // var box = Hive.box('catsFacts');
         return ListView.builder(
           itemCount: box.values.length,
           itemBuilder: (context, index) {
-            // String theFact = box.getAt(index);
-            // var theFact = box.listenable().value.keys;
             var theFact = box.get(index);
-
-            return Card(
+            return Container(
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+              child: Card(
+                  elevation: 10,
+                  margin: const EdgeInsets.all(6.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
-              '${theFact}',
-            ))
-                // title: Text('${box.listenable().value.keys}'),
-                ;
+                      '${theFact.fact} Was saved: ${theFact.today}.',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  )),
+            );
           },
         );
       },

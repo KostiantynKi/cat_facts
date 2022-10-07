@@ -1,6 +1,6 @@
 class CatsFact {
   String? fact;
-  DateTime? today = DateTime.now();
+  String? today;
 
   CatsFact({required this.fact, today});
 
