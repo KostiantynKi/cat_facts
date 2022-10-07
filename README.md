@@ -1,16 +1,13 @@
 # cat_facts
 
-A new Flutter project.
+My new Flutter project.
 
-## Getting Started
+The application receives a random picture and a fact about cats from the Internet.
+The application has 2 buttons: ‘Another fact!’ and ‘Fact history’.
+Clicking ‘Another fact!’ updates the picture and the fact.
+Pressing ‘Fact history’ opens a screen with previously saved facts and the dates they were created.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The application is developed for two APIs for receiving images: for https://cataas.com/cat and for https://unsplash.it/1600/900?random.
+https://cataas.com/cat has server issues and doesn't always work.
+To switch between APIs, you need to uncomment the corresponding lines in the Сubit file.
+By default, is getting an image from https://unsplash.it/1600/900?random API.
