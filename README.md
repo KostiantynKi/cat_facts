@@ -11,3 +11,7 @@ The application is developed for two APIs for receiving images: for https://cata
 https://cataas.com/cat has server issues and doesn't always work.
 To switch between APIs, you need to uncomment the corresponding lines in the Сubit file.
 By default, is getting an image from https://unsplash.it/1600/900?random API.
+
+
+https://user-images.githubusercontent.com/90638460/194612115-c8bc9817-7a22-45b3-9871-e212d28ee84e.mov
+
